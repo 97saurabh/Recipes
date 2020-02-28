@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+
+<div class="container">
+
+
+  <div class="col" style="margin-left:320px;margin-top:10px;">
+     <div class="card text-dark" style="width: 20rem;">
+ <img src="{% static 'images/saurabh.jpg'%}" class="card-img-top" alt="..." height="300" width="70">
+ <div class="card-body" style="text-align:center;">
+   <h2 class="card-title" style="font-family:'Permanent Marker';" >SAURABH SINGH</h2>
+   </div>
+ <ul class="list-group list-group-flush" style="text-align:center;">
+   <li class="list-group-item">INFORMATION TECHNOLOGY</li>
+   <li class="list-group-item">IET LUCKNOW</li>
+   <li class="list-group-item">PYTHON/DJANGO DEVELOPER</li>
+   <li class="list-group-item"><a href="http://saurabh9767.pythonanywhere.com/" target="_blank"class="card-link">See my previous Project</a>
+</li>
+ </ul>
+ <div class="card-body" style="text-align:center;">
+   <a href="https://github.com/97saurabh" target="_blank" class="card-link">GITHUB</a>
+   <a href="https://www.linkedin.com/in/saurabh-singh-ba5301158/" target="_blank"class="card-link">LinkedIn</a>
+   </div>
+
+</div>
+
+   </div>
+</div>
+
+
+
+
+{% endblock %}

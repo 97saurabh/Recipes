@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+{% load bootstrap3 %}
+
+
+
+{% block content %}
+
+
+<div class="container jumbotron">
+
+
+  <h4 style="font-family:'Montserrat';text-align:center;">{{ da }}</h4>
+  {% for i in data %}
+  {% if not forloop.counter|divisibleby:2 %}
+
+    <div class="row" style="margin-left:120px;">
+
+    {% endif %}
+
+    <div class="cols card" style="margin-left:95px;" >
+
+      <div class="card-body" style="width: 18rem;text-align: center;" >
+        <h5 class="card-title" style="font-family:'Montserrat';" >{{ i.food_name|upper }}</h5>
+        <p class="card-text" style=""font-family: 'Simonetta';"">Food Increeients : {{ i.food_in|capfirst }}</p>
+        <a href="{% url 'recipes:food_detail' pk=i.pk %}" class="btn btn-primary">Learn more</a>
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+
+  </div>
+  <hr>
+      {% endif %}
+  {% endfor %}
+
+
+
+
+</div>
+
+
+
+
+{% endblock %}

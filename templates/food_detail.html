@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% load bootstrap3 %}
+
+
+
+{% block content %}
+
+
+<div class="container jumbotron">
+  <div class="media">
+  <img src="{{ a.profile_pic.url }}" class="mr-3" alt="NoT Available" height="350" width="350">
+  <div class="media-body">
+    <h4 class="mt-0" style="font-family:'Montserrat';">Recipe : {{ a.food_name }}</h4>
+    <h5 style="font-family: 'Simonetta';">Ingredients Used : {{ a.food_in }}</h5>
+    <p>Description : {{ a.food_des }}</p>
+
+    {% if a.user == request.user %}
+    <a class="btn btn-primary btn-lg" href="{% url 'recipes:food_update' pk=a.pk %}" role="button">Update</a>
+    {% endif %}
+
+
+
+  </div>
+</div>
+
+
+
+</div>
+
+
+
+
+{% endblock %}

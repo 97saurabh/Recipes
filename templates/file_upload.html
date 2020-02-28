@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load bootstrap3 %}
+
+
+
+{% block content %}
+
+
+<div class="container">
+
+
+
+  <h1 style="font-family:'Montserrat';text-align:center;">Add Your Food  Recipe</h1>
+  {% if registered %}
+  <h1>Created</h1>
+  {% else %}
+  <form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {% bootstrap_form user_form %}
+
+    <input type="submit" class="btn btn-primary" value="Submit" style="margin-left:500px;">
+
+  </form>
+  {% endif %}
+
+</div>
+
+
+
+
+{% endblock %}

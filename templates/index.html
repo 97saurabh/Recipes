@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Food</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Permanent+Marker|Simonetta&display=swap" rel="stylesheet">
+  </head>
+  <body style="background-color: #d9accf;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'home' %}">Food Recipes</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'recipes:about_me' %}"> About Me <span class="sr-only">(current)</span></a>
+          </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+          <form class="form-inline my-2 my-lg-0" method="POST" action="/recipes/search/">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search Recipes" aria-label="Search" name="srh">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'recipes:food_create' %}">Create Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="">Welcome {{ user.first_name }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'basicapp:logout' %}">LogOut</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'basicapp:login' %}">LogIn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'basicapp:signup' %}">Register</a>
+          </li>
+          {% endif %}
+        </ul>
+
+      </div>
+    </nav>
+    <div class="container jumbotron" style="margin-top:10px;">
+
+
+    {% block content %}
+    {% if user.is_authenticated %}
+    {% for i in data %}
+    {% if not forloop.counter|divisibleby:2 %}
+
+      <div class="row" style="margin-left:120px;">
+
+      {% endif %}
+
+      <div class="cols card" style="margin-left:95px;" >
+
+        <div class="card-body" style="width: 18rem;text-align: center;" >
+          <h5 class="card-title" style="font-family:'Montserrat';" >{{ i.food_name|upper }}</h5>
+          <p class="card-text" style=""font-family: 'Simonetta';"">Food Ingredients : {{ i.food_in|capfirst }}</p>
+          <a href="{% url 'recipes:food_detail' pk=i.pk %}" class="btn btn-primary">Learn more</a>
+          </div>
+      </div>
+      {% if forloop.counter|divisibleby:2 %}
+
+    </div>
+    <hr>
+        {% endif %}
+    {% endfor %}
+
+    {% else %}
+    <div class="jumbotron">
+
+      <h2 style="font-family:'Permanent Marker';">Task</h2>
+      <ul>
+        <li>Create a simple web app that displays Food Recipes.</li>
+        <li>Users should be able to login and search for food recipes based on name or the
+        ingredients used.</li>
+        <li>Once the user selects one of the recipes, transition to a new page where you will
+        display images, description, ingredients and the steps related to the Recipe.</li>
+        <li> Additonaly a user should be able to sign up, Login and add/edit his/her own
+        recipes.</li>
+      </ul>
+      <h3 style="font-family:'Permanent Marker';">Solution</h3>
+      <ul>
+        <li> Visit This Site </li>
+        <li> <a href="#">Watch This Video</a> </li>
+      </ul>
+
+    </div>
+
+
+    {% endif %}
+
+
+    {% endblock %}
+</div>
+
+  </body>
+</html>
