@@ -26,5 +26,3 @@ I have created a web app, in which user can be able to signup/login. After Loggi
 1. Bootstrap is used for displaying Nice Front end.
 2. Google Font are used for fonts.
 
-## Screenshots of Web Pages
-
