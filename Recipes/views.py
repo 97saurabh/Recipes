@@ -1,13 +1,14 @@
 from django.shortcuts import render
-# Create your views here.
 
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.views.generic import View,UpdateView
 from django.urls import reverse_lazy,reverse
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required
 from . import forms,models
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+@login_required
 def food_create(request):
     registered = False
     if request.method == "POST":
@@ -32,14 +33,14 @@ def food_create(request):
                                     'user_form':user_form,
                                     'registered':registered,
     })
-class LocationUpdateView(UpdateView):
+class LocationUpdateView(UpdateView,LoginRequiredMixin):
     model = models.Food
     template_name = 'food_update.html'
     form_class = forms.FoodFormUpdate
     success_url = reverse_lazy('home')
 
 
-
+@login_required
 def food_detail(request,pk):
     a=models.Food.objects.get(pk=pk)
 
@@ -52,7 +53,8 @@ def about_me(request):
 
 
     return render(request,'about_me.html',{})
-from django.db.models import Q
+
+@login_required
 def search(request):
     if request.method=="POST":
         srch=request.POST['srh']
@@ -61,7 +63,7 @@ def search(request):
                                              Q(food_in__icontains=srch)
                                              )
             if match:
-                print("Hell")
+                
                 return render(request,'search.html',{'data':match,})
             else:
                 return render(request,'search.html',{'da':"Oops! Recipe Not Matched",})
